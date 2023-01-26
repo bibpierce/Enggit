@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @Entity
@@ -16,9 +17,10 @@ import java.time.LocalDateTime;
 public class Users {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+
     private String username;
     private String email;
     private String password;
@@ -29,8 +31,8 @@ public class Users {
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
 
-    @OneToOne()
-    private Roles roles;
+    @OneToMany
+    private Set<Roles> roles;
 
 
 

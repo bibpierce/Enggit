@@ -12,7 +12,7 @@
 //    public void onStartup(ServletContext servletContext){
 //
 //        AnnotationConfigWebApplicationContext root = new AnnotationConfigWebApplicationContext();
-//        root.register(config.SecurityConfig.class);
+//        root.register(config.WebSecurityConfig.class);
 //
 //        servletContext.addListener(new ContextLoaderListener(root));
 //
