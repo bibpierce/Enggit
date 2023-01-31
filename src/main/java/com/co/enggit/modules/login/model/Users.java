@@ -1,19 +1,24 @@
 package com.co.enggit.modules.login.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "user" , uniqueConstraints = {
         @UniqueConstraint(columnNames = {"username"}),
         @UniqueConstraint(columnNames = {"email"})
 })
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 public class Users {
 
     @Id
@@ -21,18 +26,41 @@ public class Users {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "username", nullable = false)
     private String username;
-    private String email;
-    private String password;
-    private Long transactionId;
-    private String mobile;
-    private String firstName;
-    private String lastName;
-    private LocalDateTime created_at;
-    private LocalDateTime updated_at;
 
-    @OneToMany
-    private Set<Roles> roles;
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "transaction_id", nullable = false)
+    private Long transactionId;
+
+    @Column(name = "mobile")
+    private String mobile;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(
+                    name = "users_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "roles_id", referencedColumnName = "id"))
+    private Set<Roles> roles = new HashSet<>();
 
 
 
