@@ -1,6 +1,6 @@
-package com.co.enggit.modules.login.repository;
+package com.co.enggit.modules.product.repository;
 
-import com.co.enggit.modules.login.model.Product;
+import com.co.enggit.modules.product.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

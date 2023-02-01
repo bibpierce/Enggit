@@ -1,4 +1,4 @@
-package com.co.enggit.modules.login.model;
+package com.co.enggit.modules.product.model;
 
 import jakarta.persistence.*;
 import lombok.Data;

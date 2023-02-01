@@ -1,8 +1,8 @@
-package com.co.enggit.modules.login.service.impl;
+package com.co.enggit.modules.product.service.impl;
 
-import com.co.enggit.modules.login.model.Product;
-import com.co.enggit.modules.login.repository.ProductRepository;
-import com.co.enggit.modules.login.service.ProductService;
+import com.co.enggit.modules.product.model.Product;
+import com.co.enggit.modules.product.repository.ProductRepository;
+import com.co.enggit.modules.product.service.ProductService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +11,7 @@ import java.util.Optional;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    final
-    ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
