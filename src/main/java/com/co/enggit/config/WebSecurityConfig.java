@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,14 +13,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableMethodSecurity
 @EnableWebSecurity
 @EnableGlobalAuthentication
 public class WebSecurityConfig {
 
-
-    private UserDetailsService userDetailsService;
-
+    private final UserDetailsService userDetailsService;
 
     public WebSecurityConfig(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
@@ -44,7 +40,7 @@ public class WebSecurityConfig {
                 .exceptionHandling()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/api/auth/**")
-                .permitAll().anyRequest().authenticated();     // fix H2 database console: Refused to display ' in a frame because it set 'X-Frame-Options' to 'deny'    http.headers().frameOptions().sameOrigin();        http.authenticationProvider(authenticationProvider());    http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);        return http.build();  }
+                .permitAll().anyRequest().authenticated();
         return http.build();
     }
 }

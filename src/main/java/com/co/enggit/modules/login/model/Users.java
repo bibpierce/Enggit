@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -53,6 +52,8 @@ public class Users {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "roles_id")
+    private Long roleId;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_roles",
@@ -60,8 +61,7 @@ public class Users {
                     name = "users_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "roles_id", referencedColumnName = "id"))
-    private Set<Roles> roles = new HashSet<>();
-
+    private Set<Roles> roles = new java.util.LinkedHashSet<>();
 
 
 }

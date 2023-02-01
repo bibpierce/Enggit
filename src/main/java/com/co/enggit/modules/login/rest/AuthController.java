@@ -16,10 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -50,7 +47,13 @@ public class AuthController {
 
     }
 
-    @PostMapping("/signin")
+    //home page
+    @GetMapping("/index")
+    public String home(){
+        return "index";
+    }
+
+    @PostMapping("/login")
     public ResponseEntity<String> authenticateUser(@RequestBody LoginDTO loginDTO){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginDTO.getUsernameOrEmail(), loginDTO.getPassword()
@@ -58,7 +61,7 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return new ResponseEntity<>("User signed-in sucessfully", HttpStatus.OK);
+        return new ResponseEntity<>("User signed-in successfully", HttpStatus.OK);
     }
 
     @PostMapping("/signup")
@@ -83,8 +86,8 @@ public class AuthController {
         user.setEmail(signupDTO.getEmail());
         user.setPassword(passwordEncoder.encode(signupDTO.getPassword()));
 
-
         Roles roles = roleRepository.findByName("ROLE_ADMIN").get();
+        user.setRoleId(roles.getId());
         user.setRoles(Collections.singleton(roles));
 
         userRepository.save(user);
